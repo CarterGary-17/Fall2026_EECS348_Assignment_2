@@ -1,0 +1,13 @@
+EMAIL Peer,Quick question,01-15-2025
+EMAIL ImportantPerson,Investor call notes,01-10-2025
+EMAIL Boss,Sign this contract,01-20-2025
+EMAIL Boss,Follow up on contract,01-22-2025
+EMAIL OtherPerson,Special discount inside,01-05-2025
+COUNT
+NEXT
+NEXT
+READ
+READ
+READ
+NEXT
+COUNT

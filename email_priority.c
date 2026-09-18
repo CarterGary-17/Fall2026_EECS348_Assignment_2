@@ -222,12 +222,25 @@ int parseEmailFields(char *line, Email *e) {
     e->dateValue = dateToValue(e->date);      // compute comparable date value
     return 1;// signal good
 }
+// new code added by me
+int isValidEmail(const char *category, const char *subject, const char *date) { //check for input errors
+    int m, d, y;  //holders for parsed date parts
+    int okCategory = strcmp(category, "Boss") == 0 || strcmp(category, "Subordinate") == 0 ||// check known categories
+                      strcmp(category, "Peer") == 0 || strcmp(category, "ImportantPerson") == 0 || //check further
+                      strcmp(category, "OtherPerson") == 0; //last category
+    if (!okCategory || strlen(subject) == 0 || sscanf(date, "%d-%d-%d", &m, &d, &y) != 3) { //are any bad
+        printf("input error\n"); //report an issue
+        return 0; //problem flag
+    }
+    return 1; //all good
+}
+
 
 /* ========================= command handlers ============================ */
 
 void handleEmailCommand(MaxHeap *h, char *rest) {
     Email e;  // holds the parsed email
-    if (parseEmailFields(rest, &e)) { // try to parse the fields
+    if (parseEmailFields(rest, &e) && isValidEmail(e.sender, e.subject, e.date)) { // try to parse the fields
         heapInsert(h, e);           // add the email to the heap
     }
 }
